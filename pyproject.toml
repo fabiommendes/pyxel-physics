@@ -1,0 +1,13 @@
+[build-system]
+requires = ["flit_core >=2,<3"]
+build-backend = "flit_core.buildapi"
+
+[tool.flit.metadata]
+module = "phys"
+dist-name = "pyxel-physics"
+author = "Fábio Macêdo Mendes"
+author-email = "fabiomacedomendes@gmail.com"
+home-page = "https://github.com/fabiommendes/pyxel-physics"
+classifiers = ["License :: OSI Approved :: MIT License"]
+requires = ["pyxel >= 1.4.0"]
+
