@@ -1,6 +1,10 @@
 from typing import List
 
-from .body import Body, Circle, AABB, Poly, Segment 
+from .body import Body
+from .circle import Circle
+from .aabb import AABB
+from .poly import Poly
+from .segment import Segment 
 from .vec2d import Vec2d, VecLike
 
 

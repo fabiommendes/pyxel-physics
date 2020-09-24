@@ -14,6 +14,14 @@ class Body:
     """
 
     # Propriedades genéricas
+    position_x: float = None
+    position_y: float = None
+    
+    @property
+    def area(self):
+        name = type(self).__name__
+        raise NotImplementedError(f"Corpo {name} não implementa área")
+
     @property
     def density(self):
         return self.mass / self.area if self.area else float('inf')
@@ -26,9 +34,6 @@ class Body:
 
         self.force_x = 0.0
         self.force_y = 0.0
-
-    def area(self):
-        return 0.0
 
     def apply_force(self, fx, fy):
         """
@@ -94,103 +99,8 @@ class Body:
         """
         raise NotImplementedError
 
-    def get_collision_pill(self, other):
+    def get_collision_segment(self, other):
         """
         Verifica colisão com Pílulas.
         """
         raise NotImplementedError
-
-
-
-class Circle(Body):
-    """
-    Corpo físico com caixa de contorno circular.
-    """
-    def __init__(self, radius, *args, **kwargs):
-        self.radius = radius
-        super().__init__(*args, **kwargs)
-    
-    def draw(self):
-        pyxel.circ(self.position_x, self.position_y, self.radius, self.color)
-
-    def get_collision(self, other):
-        return other.get_collision_circle(self)
-
-    def get_collision_circle(self, other):
-        dx = self.position_x - other.position_x
-        dy = self.position_y - other.position_y
-        distance = sqrt(dx**2 + dy**2)
-        
-        if distance <= self.radius + other.radius:
-            return Collision(self, other, (0, 0), (0, 0))
-        else:
-            return None
-
-
-class AABB(Body):
-    """
-    Objeto com caixa de contorno retangular e alinhada aos eixos. 
-    """
-
-    @property
-    def left(self):
-        return self.position_x - self.width / 2
-
-    @property
-    def right(self):
-        return self.position_x + self.width / 2
-
-    @property
-    def bottom(self):
-        return self.position_y - self.height / 2
-
-    @property
-    def top(self):
-        return self.position_y + self.height / 2
-
-    def __init__(self, left, bottom, right, top, *args, **kwargs):
-        assert left <= right
-        assert bottom <= top
-        self.width = right - left + 0.0
-        self.height = top - bottom + 0.0
-        x = (left + right) / 2.0
-        y = (top + bottom) / 2.0
-        super().__init__((x, y), *args, **kwargs)
-
-    def draw(self):
-        pyxel.rect(self.left, self.bottom, self.width, self.height, self.color)
-
-    def get_collision(self, other):
-        return other.get_collision_aabb(self)
-
-    def get_collision_aabb(self, other):
-        xa = max(self.left, other.left)
-        xb = min(self.right, other.right)
-        dx = xb - xa 
-
-        ya = max(self.bottom, other.bottom)
-        yb = min(self.top, other.top)
-        dy = yb - ya
-
-        if dy >= 0 and dx >= 0:
-            pos = [xm, ym] = (xa + xb) / 2, (ya + yb) / 2
-            if dx > dy:
-                normal = (0, 1 if self.left < xm else -1)
-            else:
-                normal = (1 if self.bottom < ym else -1, 0)
-            return Collision(self, other, pos, normal)
-
-
-class Segment(Body):
-    """
-    Objeto com caixa de contorno em forma de pílula, ou seja, um segmento de reta com 
-    um determinado raio de colisão. 
-    """
-    NotImplemented
-
-
-class Poly(Body):
-    """
-    Objeto com caixa de contorno poligonal e alinhada aos eixos. 
-    """
-    NotImplemented
