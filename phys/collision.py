@@ -5,6 +5,7 @@ class Collision:
     """
     Representa uma colisão 
     """
+
     def __init__(self, obj_a, obj_b, pos, normal):
         self.obj_a = obj_a
         self.obj_b = obj_b
@@ -31,4 +32,3 @@ class Collision:
         nx, ny = self.normal_x, self.normal_y
         pyxel.line(x, y, x + nx, y + ny, color)
         pyxel.circ(x, y, 1, color)
-        

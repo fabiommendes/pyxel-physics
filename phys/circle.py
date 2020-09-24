@@ -18,7 +18,7 @@ class Circle(Body):
     def __init__(self, radius, *args, **kwargs):
         self.radius = radius
         super().__init__(*args, **kwargs)
-    
+
     def draw(self):
         pyxel.circ(self.position_x, self.position_y, self.radius, self.color)
 
@@ -28,11 +28,9 @@ class Circle(Body):
     def get_collision_circle(self, other):
         dx = self.position_x - other.position_x
         dy = self.position_y - other.position_y
-        distance = sqrt(dx**2 + dy**2)
-        
+        distance = sqrt(dx ** 2 + dy ** 2)
+
         if distance <= self.radius + other.radius:
             return Collision(self, other, (0, 0), (0, 0))
         else:
             return None
-
-

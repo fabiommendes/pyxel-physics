@@ -27,22 +27,22 @@ sp.add_circle(radius=6, pos=(90, 60), color=pyxel.COLOR_RED, mass=10)
 def apply_gravity(A, B, cte=1e4):
     dx = A.position_x - B.position_x
     dy = A.position_y - B.position_y
-    r = sqrt(dx**2 + dy**2)
+    r = sqrt(dx ** 2 + dy ** 2)
     dx /= r
     dy /= r
 
-    F = -cte / (r + 10)**2 
+    F = -cte / (r + 10) ** 2
     Fx = dx * F
     Fy = dy * F
 
     A.apply_force(Fx, Fy)
-    B.apply_force(-Fx, -Fy) 
+    B.apply_force(-Fx, -Fy)
 
 
 def apply_force(obj, x, y, cte=50, gamma=0.5):
     dx = obj.position_x - x
     dy = obj.position_y - y
-    r = sqrt(dx**2 + dy**2)
+    r = sqrt(dx ** 2 + dy ** 2)
     dx /= r
     dy /= r
 
@@ -55,7 +55,7 @@ def apply_force(obj, x, y, cte=50, gamma=0.5):
 def update():
     # Força da gravidade
     for i, A in enumerate(sp.bodies):
-        for B in sp.bodies[i + 1:]:
+        for B in sp.bodies[i + 1 :]:
             apply_gravity(A, B)
 
     # Força atrativa controlada pelo mouse
@@ -80,11 +80,11 @@ def stars_field_commands():
 
     for i, (x, y) in enumerate(STARS):
         r = random.random()
-        if r < 0.7: 
+        if r < 0.7:
             yield (x, y, colors[i % 2])
-        elif r < 0.85: 
+        elif r < 0.85:
             yield (x, y, pyxel.COLOR_GRAY)
-        elif r < 0.9: 
+        elif r < 0.9:
             yield (x, y, pyxel.COLOR_YELLOW)
         elif r < 0.91:
             for a, b in [(0, 0), (1, 0), (-1, 0), (0, -1), (0, 1)]:

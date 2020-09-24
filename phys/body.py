@@ -16,7 +16,7 @@ class Body:
     # Propriedades genéricas
     position_x: float = None
     position_y: float = None
-    
+
     @property
     def area(self):
         name = type(self).__name__
@@ -24,7 +24,7 @@ class Body:
 
     @property
     def density(self):
-        return self.mass / self.area if self.area else float('inf')
+        return self.mass / self.area if self.area else float("inf")
 
     def __init__(self, pos=(0, 0), vel=(0, 0), mass=1.0, color=0):
         self.position_x, self.position_y = map(float, pos)
@@ -43,7 +43,7 @@ class Body:
         ao mesmo objeto em cada passo de simulação.
         """
         self.force_x += fx
-        self.force_y += fy        
+        self.force_y += fy
 
     def update_velocity(self, dt):
         """
@@ -52,7 +52,7 @@ class Body:
         """
         acc_x = self.force_x / self.mass
         acc_y = self.force_y / self.mass
-        
+
         self.velocity_x += acc_x * dt
         self.velocity_y += acc_y * dt
 
@@ -74,14 +74,14 @@ class Body:
     #
     # Calcula colisões com outras figuras geométricas.
     #
-    def get_collision(self, other: 'Body') -> 'Collision':
+    def get_collision(self, other: "Body") -> "Collision":
         """
         Verifica se há colisão com outro objeto e retorna um objeto de colisão 
         ou None caso não exista superposição.
-        """ 
+        """
         raise NotImplementedError(type(self), type(other))
 
-    def get_collision_circle(self, other: 'Circle'):
+    def get_collision_circle(self, other: "Circle"):
         """
         Verifica colisão com círculos.
         """

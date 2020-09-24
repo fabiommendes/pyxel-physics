@@ -4,7 +4,7 @@ from .body import Body
 from .circle import Circle
 from .aabb import AABB
 from .poly import Poly
-from .segment import Segment 
+from .segment import Segment
 from .vec2d import Vec2d, VecLike
 
 
@@ -12,10 +12,10 @@ class Space:
     """
     Representa um grupo de objetos que interagem entre si.
     """
-    
+
     def __init__(self):
         self.bodies = []
-    
+
     #
     # Criação e remoção de objetos
     #
@@ -29,26 +29,26 @@ class Space:
         obj = cls(*args, **kwargs)
         self.add(obj)
         return obj
- 
+
     def add_circle(self, *args, **kwargs) -> Circle:
         """
         Cria círculo e adiciona ao espaço.
         """
         return self._add_object(Circle, *args, **kwargs)
-        
-    def add_aabb(self, *args, **kwargs) -> 'Circle':
+
+    def add_aabb(self, *args, **kwargs) -> "Circle":
         """
         Cria AABB e adiciona ao espaço.
         """
         return self._add_object(AABB, *args, **kwargs)
 
-    def add_poly(self, *args, **kwargs) -> 'Circle':
+    def add_poly(self, *args, **kwargs) -> "Circle":
         """
         Cria polígono e adiciona ao espaço.
         """
         return self._add_object(Poly, *args, **kwargs)
 
-    def add_segment(self, *args, **kwargs) -> 'Circle':
+    def add_segment(self, *args, **kwargs) -> "Circle":
         """
         Cria segmento e adiciona ao espaço.
         """
@@ -80,7 +80,7 @@ class Space:
         # Encontra colisões
         collisions = []
         for i, obj_a in enumerate(self.bodies):
-            for obj_b in self.bodies[i+1:]:
+            for obj_b in self.bodies[i + 1 :]:
                 col = obj_a.get_collision(obj_b)
                 if col is not None:
                     collisions.append(col)

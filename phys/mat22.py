@@ -4,9 +4,9 @@ from math import sqrt, pi
 
 from .vec2d import Vec2d, VecLike
 
-MatLike = Union['Mat2', Tuple[Tuple[Number, Number], Tuple[Number, Number]]]
+MatLike = Union["Mat2", Tuple[Tuple[Number, Number], Tuple[Number, Number]]]
 RADS_TO_DEGREES = 180 / pi
-DEGREES_TO_RADS = pi / 180 
+DEGREES_TO_RADS = pi / 180
 
 
 class Mat2:
@@ -70,7 +70,7 @@ class Mat2:
         """
         raise NotImplementedError
 
-    @classmethod 
+    @classmethod
     def zero(cls):
         """
         Cria matriz nula.
@@ -91,7 +91,7 @@ class Mat2:
 
     def __radd__(self, other):
         raise NotImplementedError
-    
+
     def __sub__(self, other):
         raise NotImplementedError
 
@@ -103,7 +103,7 @@ class Mat2:
 
     def __rmul__(self, other):
         raise NotImplementedError
-    
+
     def __truediv__(self, other):
         raise NotImplementedError
 
@@ -134,7 +134,7 @@ class Mat2:
         """
         raise NotImplementedError
 
-    def interpolate_to(self, other: MatLike, range: float) -> 'Vec2d':
+    def interpolate_to(self, other: MatLike, range: float) -> "Vec2d":
         """
         Interpola vetor até other no intervalo controlado por range.
 
@@ -155,7 +155,7 @@ class Mat2:
         """
         self.rotate(angle * DEGREES_TO_RADS)
 
-    def rotated(self, angle: float) -> 'Vec2d':
+    def rotated(self, angle: float) -> "Vec2d":
         """
         Cria nova matriz rotacionado ângulo em radianos.
         """
@@ -163,7 +163,7 @@ class Mat2:
         new.rotate(angle)
         return new
 
-    def rotated_degrees(self, angle: float) -> 'Vec2d':
+    def rotated_degrees(self, angle: float) -> "Vec2d":
         """
         Cria nova matriz rotacionado ângulo em graus.
         """
@@ -187,7 +187,7 @@ class Mat2:
 #
 # Funções auxiliares
 #
-def asmat2(obj) -> 'Vec2d':
+def asmat2(obj) -> "Vec2d":
     """
     Converte objeto para Vec2d, caso não seja vetor. 
     """
@@ -196,6 +196,6 @@ def asmat2(obj) -> 'Vec2d':
     elif isinstance(obj, (tuple, list)):
         row1, row2 = obj
         return Mat2(row1, row2)
-    
+
     kind = type(obj).__name__  # Extrai nome do tipo de obj.
-    raise TypeError(f'não pode converter {kind} em Mat2')
+    raise TypeError(f"não pode converter {kind} em Mat2")

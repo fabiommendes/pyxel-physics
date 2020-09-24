@@ -7,7 +7,7 @@ from .vec2d import Vec2d, VecLike, asvec2d
 from .mat22 import Mat2, asmat2
 
 RADS_TO_DEGREES = 180 / pi
-DEGREES_TO_RADS = pi / 180 
+DEGREES_TO_RADS = pi / 180
 
 
 class Transform:
@@ -53,6 +53,7 @@ class Transform:
         um vetor de deslocamento
         """
         return cls.scale(1, 1)
+
     @classmethod
     def identity(cls):
         """
@@ -101,7 +102,7 @@ class Transform:
 
     def __rmul__(self, other):
         raise NotImplementedError
-    
+
     # Comparações
     def __eq__(self, other):
         raise NotImplementedError
@@ -138,7 +139,7 @@ class Transform:
         """
         self.rotate(angle * DEGREES_TO_RADS)
 
-    def rotated(self, angle: float) -> 'Transform':
+    def rotated(self, angle: float) -> "Transform":
         """
         Cria nova transformação afim rotacionado ângulo em radianos.
         """
@@ -146,7 +147,7 @@ class Transform:
         new.rotate(angle)
         return new
 
-    def rotated_degrees(self, angle: float) -> 'Transform':
+    def rotated_degrees(self, angle: float) -> "Transform":
         """
         Cria nova transformação afim rotacionado ângulo em graus.
         """
@@ -182,7 +183,7 @@ class Transform:
 #
 # Funções auxiliares
 #
-def astransform(obj) -> 'Transform':
+def astransform(obj) -> "Transform":
     """
     Converte objeto para Transform, caso não seja. 
     """
@@ -193,10 +194,10 @@ def astransform(obj) -> 'Transform':
     elif isinstance(obj, (tuple, list, Vec2d)):
         return Transform.affine(Mat2.identity(), asvec2d(obj))
     kind = type(obj).__name__  # Extrai nome do tipo de obj.
-    raise TypeError(f'não pode converter {kind} em Transform')
+    raise TypeError(f"não pode converter {kind} em Transform")
 
 
-@singledispatch 
+@singledispatch
 def transformed(obj, transform: Transform):
     """
     Retorna cópia de objeto transformado pela transformação afim dada.
@@ -206,7 +207,7 @@ def transformed(obj, transform: Transform):
     return new
 
 
-@singledispatch 
+@singledispatch
 def transform(obj, transform: Transform):
     """
     Transforma objeto pela transformação afim dada.

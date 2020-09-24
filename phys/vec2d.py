@@ -2,9 +2,9 @@ from typing import Union, Tuple
 from numbers import Number
 from math import sqrt, pi
 
-VecLike = Union['Vec2d', Tuple[Number, Number]]
+VecLike = Union["Vec2d", Tuple[Number, Number]]
 RADS_TO_DEGREES = 180 / pi
-DEGREES_TO_RADS = pi / 180 
+DEGREES_TO_RADS = pi / 180
 
 
 class Vec2d:
@@ -59,20 +59,20 @@ class Vec2d:
 
     # Métodos estáticos
     @classmethod
-    def unit_x(cls) -> 'Vec2d':
+    def unit_x(cls) -> "Vec2d":
         """
         Vetor unitário na direção x.
         """
         return cls(1.0, 0.0)
 
     @classmethod
-    def unit_y(cls) -> 'Vec2d':
+    def unit_y(cls) -> "Vec2d":
         """
         Vetor unitário na direção y.
         """
         return cls(0.0, 1.0)
 
-    @classmethod 
+    @classmethod
     def zero(cls):
         """
         Vetor de tamanho nulo.
@@ -89,7 +89,7 @@ class Vec2d:
 
     def __radd__(self, other):
         raise NotImplementedError
-    
+
     def __sub__(self, other):
         raise NotImplementedError
 
@@ -101,7 +101,7 @@ class Vec2d:
 
     def __rmul__(self, other):
         raise NotImplementedError
-    
+
     def __truediv__(self, other):
         raise NotImplementedError
 
@@ -115,7 +115,7 @@ class Vec2d:
     # Comportamento de sequências
     def __len__(self):
         return 2
-        
+
     def __iter__(self):
         raise NotImplementedError
 
@@ -152,13 +152,13 @@ class Vec2d:
         """
         Retorna ângulo entre self e outro vetor (em radianos).
         """
-        raise NotImplementedError 
+        raise NotImplementedError
 
     def get_angle_degrees_between(self, other: VecLike) -> float:
         """
         Retorna ângulo entre self e outro vetor (em graus).
         """
-        raise NotImplementedError 
+        raise NotImplementedError
 
     def get_dist_sqrd(self, other: VecLike) -> float:
         """
@@ -172,7 +172,7 @@ class Vec2d:
         """
         return sqrt(self.get_dist_sqrd(other))
 
-    def normalized(self) -> 'Vec2d':
+    def normalized(self) -> "Vec2d":
         """
         Retorna cópia normalizada do vetor.
         """
@@ -184,7 +184,7 @@ class Vec2d:
         """
         raise NotImplementedError
 
-    def interpolate_to(self, other: VecLike, range: float) -> 'Vec2d':
+    def interpolate_to(self, other: VecLike, range: float) -> "Vec2d":
         """
         Interpola vetor até other no intervalo controlado por range.
 
@@ -193,19 +193,19 @@ class Vec2d:
         """
         raise NotImplementedError
 
-    def perpendicular(self) -> 'Vec2d':
+    def perpendicular(self) -> "Vec2d":
         """
         Retorna vetor perpendicular na direção 90 graus anti-horário.
         """
         raise NotImplementedError
 
-    def perpendicular_normal(self) -> 'Vec2d':
+    def perpendicular_normal(self) -> "Vec2d":
         """
         Retorna vetor normalizado e perpendicular na direção 90 graus anti-horário.
         """
         return self.perpendicular().normalized()
 
-    def projection(self, other: VecLike) -> 'Vec2d':
+    def projection(self, other: VecLike) -> "Vec2d":
         """
         Projeta vetor em cima de outro vetor.
         """
@@ -223,13 +223,13 @@ class Vec2d:
         """
         self.rotate(angle * DEGREES_TO_RADS)
 
-    def rotated(self, angle: float) -> 'Vec2d':
+    def rotated(self, angle: float) -> "Vec2d":
         """
         Cria novo vetor rotacionado ângulo em radianos.
         """
         raise NotImplementedError
-        
-    def rotated_degrees(self, angle: float) -> 'Vec2d':
+
+    def rotated_degrees(self, angle: float) -> "Vec2d":
         """
         Cria novo vetor rotacionado ângulo em graus.
         """
@@ -239,7 +239,7 @@ class Vec2d:
 #
 # Funções auxiliares
 #
-def asvec2d(obj) -> 'Vec2d':
+def asvec2d(obj) -> "Vec2d":
     """
     Converte objeto para Vec2d, caso não seja vetor. 
     """
@@ -248,6 +248,6 @@ def asvec2d(obj) -> 'Vec2d':
     elif isinstance(obj, tuple):
         x, y = obj
         return Vec2d(x, y)
-    
+
     kind = type(obj).__name__  # Extrai nome do tipo de obj.
-    raise TypeError(f'não pode converter {kind} em Vec2d')
+    raise TypeError(f"não pode converter {kind} em Vec2d")

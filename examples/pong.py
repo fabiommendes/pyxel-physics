@@ -18,8 +18,9 @@ player2 = space.add_aabb(112, 45 - h, 115, 45 + h, color=pyxel.COLOR_WHITE)
 ball = space.add_aabb(58, 43, 62, 47, color=pyxel.COLOR_RED)
 
 # Margens
-margin_bottom = space.add_aabb(0, 90, 120, 100, mass='inf')
-margin_top = space.add_aabb(0, -10, 120, 0, mass='inf')
+margin_bottom = space.add_aabb(0, 90, 120, 100, mass="inf")
+margin_top = space.add_aabb(0, -10, 120, 0, mass="inf")
+
 
 def update():
     if pyxel.btn(pyxel.KEY_UP):
@@ -35,12 +36,14 @@ def update():
     if pyxel.btnp(pyxel.KEY_R):
         ball.velocity_x, ball.velocity_y = (0, 0)
         ball.position_x, ball.position_y = (60, 45)
-    
+
     space.step(dt)
+
 
 def draw():
     pyxel.cls(pyxel.COLOR_BLACK)
     space.draw()
+
 
 pyxel.init(120, 90, fps=FPS, caption="Pong")
 pyxel.run(update, draw)

@@ -8,6 +8,7 @@ class Poly(Body):
     """
     Objeto com caixa de contorno poligonal e alinhada aos eixos. 
     """
+
     @property
     def area(self):
         raise area(self._vertices)
@@ -56,7 +57,7 @@ def area(vertices):
     Assume polígono convexo enrolado de forma anti-horária.
     """
     raise NotImplementedError
-    
+
 
 def center_of_gravity(vertices):
     """

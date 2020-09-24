@@ -19,7 +19,7 @@ def vector_argument(func):
     25.0
     """
 
-    ... # Implementar!
+    ...  # Implementar!
     return func
 
 
@@ -29,5 +29,5 @@ def vector_argument_method(method):
     de classe que recebem "self" como primeiro argumento.
     """
 
-    ... # Implementar!
+    ...  # Implementar!
     return method
