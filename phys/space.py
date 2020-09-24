@@ -1,5 +1,7 @@
 from typing import List
 
+import pyxel
+
 from .body import Body
 from .circle import Circle
 from .aabb import AABB
@@ -14,7 +16,12 @@ class Space:
     """
 
     def __init__(self):
+        self.time = 0.0
+        self.current_time_step = 0.0
         self.bodies = []
+
+    def __contains__(self, body):
+        return body in self.bodies
 
     #
     # Criação e remoção de objetos
@@ -74,27 +81,42 @@ class Space:
         """
         Executa um passo de simulação.
         """
+        self.current_time_step = dt
+
+        # Atualiza as velocidades dos corpos em função das forças acumuladas.
         for body in self.bodies:
             body.update_velocity(dt)
 
-        # Encontra colisões
-        collisions = []
+        # Resolve as colisões.
+        for collision in self.get_collisions():
+            collision.resolve()
+
+        # Finalmente atualiza as posições.
+        for body in self.bodies:
+            body.update_position(dt)
+
+        self.time += dt
+
+    def get_collisions(self):
+        """
+        Retorna sequência de colisões para o frame.
+        """
         for i, obj_a in enumerate(self.bodies):
             for obj_b in self.bodies[i + 1 :]:
                 col = obj_a.get_collision(obj_b)
                 if col is not None:
-                    collisions.append(col)
-
-        # Resolve as colisões
-        for collision in collisions:
-            collision.resolve_collision()
-
-        for body in self.bodies:
-            body.update_position(dt)
+                    yield col
 
     #
-    # Desenha
+    # Outras funções
     #
-    def draw(self):
+    def draw(self, *, background=None):
+        """
+        Desenha o espaço chamando a função .draw() de cada elemento do espaço.
+        """
+
+        if background is not None:
+            pyxel.cls(background)
+
         for body in self.bodies:
             body.draw()
